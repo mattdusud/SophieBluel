@@ -49,11 +49,20 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
+	max-width: 3840px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
+.content {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	min-height: calc(1024px - 136px - 50px);
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -75,8 +84,9 @@ h1{
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
+	font-weight: 400;
 	letter-spacing: 0.1em;
-;
+	padding-top: 4px;
 }
 
 h2{
@@ -118,6 +128,7 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-bottom: 140px;
 }
 #introduction figure {
 	flex: 1
@@ -200,6 +211,12 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #0E2F28;
 }
 
 .filtres {
@@ -232,6 +249,71 @@ input[type="submit"]{
 	color: white;
 }
 
+#login {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 50px;
+}
+
+#login > * {
+	text-align: center;
+
+}
+
+#login .formContainer {
+	display: flex;
+	width: 30%;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#login h2 {
+	text-align: center;
+}
+
+#login form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.wrong {
+	background-color: #d14d4d;
+}
+
+#login label {
+	margin: 2em 0 1em 0;
+}
+#login textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login p {
+	text-align: center;
+}
+
+footer nav ul li{
+	font-weight: 300;
+}
+
+footer {
+	width: calc(100% - 2px);
+	background-color: white;
+	border: solid transparent 1px;
+	font-size: 14px;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
@@ -239,3 +321,120 @@ footer nav ul {
 	background-color: white;
 }
 
+.loggedBanner {
+	text-align: center;
+	align-content: center;
+	background-color: black;
+	height: 59px;
+	color: white;
+	font-size: 16px;
+}
+
+i {
+	display: block;
+	font-size: 16px;
+	text-align: center;
+	align-content: center;
+	color: white;
+	padding: 10px;
+}
+
+#ligneTitre {
+	display: flex;
+  	justify-content: center;
+  	position: relative;
+}
+
+#ligneTitre div {
+	position: absolute;
+  	right: 350px;
+  	bottom: 26px;
+  	align-content: center;
+  	text-align: center;
+  	align-items: center;
+	cursor: pointer;
+}
+
+#ligneTitre i {
+	color: black;
+}
+
+.modale {
+	background-color: #0000004d;
+	z-index: 10;
+	position: absolute;
+	left: 0px;
+	top: 59px;
+	width: 100%;
+	margin: 0px;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+.modalePopup {
+	width: 630px;
+	height: 688px;
+	background-color: white;
+	border-radius: 10px;
+	top: 601px;
+  	position: relative;
+	z-index: 20;
+}
+
+#editPopup h2 {
+	text-align: center;
+	margin-bottom: 1em;
+	color: black;
+	font-family: 'Work Sans' ;
+	font-size: 26px;
+	font-weight: 400;
+	margin-bottom: 46px;
+}
+#editPopup figure {
+position: inherit;
+}
+
+#editPopup i {
+	color: black;
+}
+
+.editGallery {
+	width: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 9px;
+	grid-row-gap: 29px;
+	margin: 0px 105px 0px 105px;
+	padding-bottom: 67px;
+	border-bottom: 1px solid #B3B3B3;
+}
+
+.editGallery img {
+	width: 100%;
+}
+
+.closeButton {
+	text-align: right;
+	margin-right: 36px;
+	margin-top: 32px;
+	padding: 0px;
+	cursor: pointer;
+}
+
+#editPopup .addButton {
+	font-family: 'Syne';
+	font-size: 16px;
+	font-weight: 700;
+	border: #1D6154 1px solid;
+	background-color: #1D6154;
+	color: white;
+	border-radius: 60px;
+	transition: all .3s ease-in-out;
+	cursor: pointer;
+	margin: 38px auto;
+	width: 237px;
+	height: 36px;
+	text-align: center;
+	align-content: center;
+}

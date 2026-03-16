@@ -12,7 +12,7 @@ export async function initFiltres() {
         // Transformation des catégories en JSON
         const jCategories = JSON.stringify(categories);
         // Stockage des informations dans le localStorage
-        window.localStorage.setItem("categories", jCategories);
+        window.localStorage.setItem('categories', jCategories);
     } else {
         categories = JSON.parse(categories);
     }

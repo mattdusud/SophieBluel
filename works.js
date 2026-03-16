@@ -10,11 +10,10 @@ export async function recupWorks(categorie) {
         // Transformation des works en JSON
         const jWorks = JSON.stringify(works);
         // Stockage des informations dans le localStorage
-        window.localStorage.setItem("works", jWorks);
+        window.localStorage.setItem('works', jWorks);
     } else {
         works = JSON.parse(works);
     }
-
     for (let element of works) {
         let gallerie = document.querySelector("#portfolio .gallery");
         let filtreUtile = categorie;
