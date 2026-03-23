@@ -4,14 +4,12 @@ import { checkUser, logOff } from "./login.js";
 import { ouvrirModale } from "./modale.js";
 
 export function isLogged() {
-    //console.log("flag isLogged");
     let userToken = window.localStorage.getItem('userToken');
     userToken = JSON.parse(userToken);
     return (userToken !== null)
 }
 
 export function removeLoggedElements() {
-    //console.log("flag removeLoggedElements");
     let banner = document.querySelector(".loggedBanner");
     if (banner !== null) {
         banner.remove();
@@ -23,7 +21,6 @@ export function removeLoggedElements() {
 }
 
 export function addLoggedElements() {
-    //console.log("flag addLoggedElements");
     if (!isLogged()) {
         let loginBtn = document.getElementById("loginLink");
         loginBtn.innerText = "login";
@@ -70,7 +67,6 @@ loginBtn.addEventListener('click', () => {
 
 if (!isLogged()){
     let divFiltres = document.querySelector(".filtres");
-    console.log(filtres.innerHTML);
     if (filtres.innerHTML === undefined) {
         initFiltres();
         filtres();

@@ -51,7 +51,6 @@ async function connect() {
                 incorrectEmail.classList.remove("wrong");
                 let incorrectPassword = document.getElementById("password");
                 incorrectPassword.classList.remove("wrong");
-                console.log(userToken)
                 window.location.replace("./index.html");
             }
         } catch (error) {
@@ -61,7 +60,6 @@ async function connect() {
 
     } else {
         userToken = JSON.parse(userToken);
-        console.log(userToken)
         window.location.replace("./index.html");
     }
 }
@@ -89,9 +87,6 @@ export function logOff() {
     }
 
     checkUser();
-    userToken = window.localStorage.getItem('userToken');
-    userToken = JSON.parse(userToken);
-    console.log(userToken);
 }
 
 

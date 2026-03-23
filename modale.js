@@ -1,4 +1,5 @@
 import { urlCategories, urlUserLogin, urlWorks } from "./config.js";
+import { recupWorks } from "./works.js";
 
 export function ouvrirModale() {
     let modale = document.createElement("section");
@@ -25,10 +26,16 @@ export function ouvrirModale() {
     modale.appendChild(popUp);
     closeBtn.addEventListener('click', () => {
         modale.remove();
+        let gallery = document.querySelector(".gallery");
+        gallery.innerHTML = "";
+        recupWorks("0");
     })
     modale.addEventListener("click", (e) => {
         if (e.target === e.currentTarget) {
             modale.remove();
+            let gallery = document.querySelector(".gallery");
+            gallery.innerHTML = "";
+            recupWorks("0");
         }
     });
     creerContenuDelete();
@@ -107,6 +114,7 @@ function creerContenuAjouter() {
 
     browseButton.onchange = evt => {
         const [file] = browseButton.files;
+
         if (file) {
             iconImage.hidden = true;
             browseButton.hidden = true;
@@ -115,6 +123,7 @@ function creerContenuAjouter() {
             previewImg.hidden = false;
             previewImg.src = URL.createObjectURL(file)
         }
+        afficherMsgAjoutWork("test");
     }
 
     let uploadChamps = document.createElement("div");
@@ -162,17 +171,10 @@ function creerContenuAjouter() {
     addButton.addEventListener('click', (event) => {
         event.preventDefault();
         uploadWork();
-        console.log("photo ajoutée");
     })
 
     uploadTitre.onchange = evt => {
-        const [file] = browseButton.files;
-        if (file && (uploadTitre.value !== null)) {
-            console.log("champs ok");
-            addButton.disabled = false;
-            addButton.classList.add("btnEnabled");
-            addButton.classList.remove("btnDisabled");
-        }
+        afficherMsgAjoutWork("Champs incomplets");
     }
 
     formulaireAjout.appendChild(cadreAjout);
@@ -185,6 +187,36 @@ function creerContenuAjouter() {
     formulaireAjout.appendChild(uploadChamps);
     formulaireAjout.appendChild(addButton);
     content.appendChild(formulaireAjout);
+}
+
+function afficherMsgAjoutWork(message) {
+    let browseButton = document.getElementById("uploadPhoto");
+    let uploadTitre = document.getElementById("uploadTitre");
+    let addButton = document.getElementById("btnAjout");
+    let formulaireAjout = document.getElementById("formulaireAjout");
+    const [file] = browseButton.files;
+    if (file && (uploadTitre.value !== null) && (uploadTitre.value !== "")) {
+        addButton.disabled = false;
+        addButton.classList.add("btnEnabled");
+        addButton.classList.remove("btnDisabled");
+
+        let msgMauvaiseInfos = document.getElementById("msgBadInfo");
+        if (msgMauvaiseInfos !== null) {
+            msgMauvaiseInfos.remove();
+        }
+    }
+    else {
+        let msgMauvaiseInfos = document.getElementById("msgBadInfo");
+        if (msgMauvaiseInfos === null) {
+            msgMauvaiseInfos = document.createElement("div");
+            msgMauvaiseInfos.setAttribute("id", "msgBadInfo");
+        }
+        msgMauvaiseInfos.innerText = message;
+        addButton.classList.remove("btnEnabled");
+        addButton.classList.add("btnDisabled");
+        addButton.disabled = true;
+        formulaireAjout.appendChild(msgMauvaiseInfos);
+    }
 }
 
 async function recupWorksPopup() {
@@ -218,7 +250,6 @@ async function recupWorksPopup() {
             poubelle.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
             poubelle.setAttribute('workId', element.id)
             poubelle.addEventListener('click', () => {
-                console.log(poubelle.getAttribute('workId'));
                 deleteWork(poubelle.getAttribute('workId'));
             })
             figure.appendChild(poubelle);
@@ -231,7 +262,6 @@ async function recupWorksPopup() {
 async function deleteWork(workId) {
     let userToken = window.localStorage.getItem('userToken');
     userToken = JSON.parse(userToken);
-    console.log(userToken.token);
     let bearerToken = userToken.token;
     let gallerie = document.querySelector("#editPopup .editGallery");
     let reponse = await fetch(urlWorks + "/" + workId, {
@@ -242,24 +272,11 @@ async function deleteWork(workId) {
             "Authorization": "Basic " + bearerToken
         }
     });
-    console.log(urlWorks + "/" + workId)
+
     if (reponse.ok) {
         gallerie.innerHTML = "";
         recupWorksPopup();
     }
-}
-
-function recupMaxId() {
-    let works = window.localStorage.getItem('works');
-    works = JSON.parse(works);
-
-    let maxId = 0;
-    for (let element of works) {
-        let tmpId = element.id;
-        maxId = (tmpId > maxId) ? tmpId : maxId;
-    }
-    console.log(maxId);
-    return maxId;
 }
 
 async function uploadWork() {
@@ -268,18 +285,8 @@ async function uploadWork() {
     userToken = JSON.parse(userToken);
     let newUserId = userToken.userId;
 
-    let newWorkId = recupMaxId();
-    newWorkId++;
-
     const newWorkSubmit = new FormData(formulaireAjout);
-    // Forcer category en nombre (si nécessaire côté backend)
-    // const categoryValue = Number(newWorkSubmit.get("category")); // récupère la valeur actuelle
-    // newWorkSubmit.set("category", categoryValue); // remplace par un nombre
 
-    for (let pair of new FormData(formulaireAjout).entries()) {
-        console.log(pair[0], pair[1]);
-    }
-    console.log(newWorkSubmit);
     let bearerToken = userToken.token;
 
     let reponse = await fetch(urlWorks, {
@@ -294,7 +301,10 @@ async function uploadWork() {
 
     if (reponse.ok) {
         //gallerie.innerHTML = "";
-
+        let content = document.querySelector(".popupContent");
+        content.innerHTML = "";
+        creerContenuAjouter();
+        afficherMsgAjoutWork("Photo téléversée");
     }
 }
 

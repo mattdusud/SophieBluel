@@ -88,7 +88,3 @@ export async function initFiltres() {
     }
 
 }
-
-// export async function fillCatChamps() {
-
-// }

@@ -588,3 +588,8 @@ fieldset {
 	border: #1D6154 1px solid;
 	background-color: #1D6154;
 }
+
+#msgBadInfo {
+	position: absolute;
+	bottom: 20px;
+}
