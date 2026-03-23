@@ -1,5 +1,7 @@
 import { recupWorks } from "./works.js";
+import { urlCategories, urlUserLogin, urlWorks } from "./config.js";
 
+//création des boutons de filtres
 export async function initFiltres() {
     //Récupération des catégories eventuellement stockés dans le localStorage
 
@@ -7,7 +9,7 @@ export async function initFiltres() {
 
     if (categories === null) {
         // Récupération des catégories depuis l'API
-        const reponse = await fetch('http://localhost:5678/api/categories');
+        const reponse = await fetch(urlCategories);
         categories = await reponse.json();
         // Transformation des catégories en JSON
         const jCategories = JSON.stringify(categories);
@@ -46,7 +48,9 @@ export async function initFiltres() {
         // population gallerie selon filtre
         recupWorks(event.target.dataset.categorie);
     })
-    filtres.appendChild(bouton);
+    if (filtres !== null){
+        filtres.appendChild(bouton);
+    }
 
     //ajouts boutons depuis API
     for (let element of categories) {
@@ -78,7 +82,13 @@ export async function initFiltres() {
             recupWorks(event.target.dataset.categorie);
         })
 
+        if (filtres !== null){
         filtres.appendChild(bouton);
+        }
     }
 
 }
+
+// export async function fillCatChamps() {
+
+// }
