@@ -2,7 +2,6 @@ import { urlCategories, urlUserLogin, urlWorks } from "./config.js";
 import { isLogged } from "./script.js";
 
 export async function recupWorks(categorie) {
-
     // Récupération des works depuis l'API
     const reponse = await fetch(urlWorks);
     let works = await reponse.json();

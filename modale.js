@@ -253,7 +253,36 @@ async function recupWorksPopup() {
             poubelle.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
             poubelle.setAttribute('workId', element.id)
             poubelle.addEventListener('click', () => {
-                deleteWork(poubelle.getAttribute('workId'));
+                //poppup de confirmation
+                let modale = document.querySelector(".modale");
+                let popUpConfirmDelete = document.createElement('div');
+                popUpConfirmDelete.classList.add("confirmPopupDelete");
+                popUpConfirmDelete.id = "confirmDeletePopup";
+                let popuptitre = document.createElement("h2");
+                popuptitre.innerText = "Voulez-vous supprimer ce travail?";
+                popUpConfirmDelete.appendChild(popuptitre);;
+                modale.appendChild(popUpConfirmDelete);
+
+                let zoneConfirm = document.createElement("div");
+                zoneConfirm.classList.add("zoneConfirm");
+                let btnConfirm = document.createElement("div");
+                btnConfirm.classList.add("confirmButton");
+                btnConfirm.innerText = "Oui";
+                btnConfirm.addEventListener('click', () => {
+                    deleteWork(poubelle.getAttribute('workId'));
+                    popUpConfirmDelete.remove();
+                })
+                let btnAnnuler = document.createElement("div");
+                btnAnnuler.classList.add("cancelButton");
+                btnAnnuler.innerText = "Non";
+                btnAnnuler.addEventListener('click', () => {
+                    popUpConfirmDelete.remove();
+                })
+                zoneConfirm.appendChild(btnConfirm);
+                zoneConfirm.appendChild(btnAnnuler);
+                popUpConfirmDelete.appendChild(zoneConfirm);
+                
+                //deleteWork(poubelle.getAttribute('workId'));
             })
             figure.appendChild(poubelle);
             gallerie.appendChild(figure);
