@@ -65,7 +65,7 @@ loginBtn.addEventListener('click', () => {
     }
 })
 
-if (!isLogged()){
+if (!isLogged()) {
     let divFiltres = document.querySelector(".filtres");
     if (filtres.innerHTML === undefined) {
         initFiltres();

@@ -1,19 +1,19 @@
 import { urlCategories, urlUserLogin, urlWorks } from "./config.js";
 import { addLoggedElements, removeLoggedElements, isLogged } from "./script.js";
 
-function displayErrorMessage(message){
-    if(document.querySelector("form p")=== null) {
+function displayErrorMessage(message) {
+    if (document.querySelector("form p") === null) {
         let incorrectEmail = document.getElementById("email");
         incorrectEmail.classList.add("wrong");
         let incorrectPassword = document.getElementById("password");
         incorrectPassword.classList.add("wrong");
         let formulaire = document.querySelector("form");
         let msgErreur = document.createElement("p");
-        msgErreur.innerText = message;      
+        msgErreur.innerText = message;
         formulaire.appendChild(msgErreur);
     }
     else {
-        msgErreur.innerText = message; 
+        msgErreur.innerText = message;
     }
 }
 
@@ -21,7 +21,7 @@ async function connect() {
     //suppression token si nouveau click du bouton
     window.localStorage.removeItem('userToken');
     let userToken = null;
-///23 à 39
+    ///23 à 39
     const userCredentials = {
         email: document.getElementById("email").value,
         password: document.getElementById("password").value
@@ -30,7 +30,7 @@ async function connect() {
     if (userToken === null) {
         try {
             // Récupération du token depuis l'API
-            const reponse = await fetch(urlUserLogin, {  
+            const reponse = await fetch(urlUserLogin, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: jCredentials
@@ -92,11 +92,11 @@ export function logOff() {
 
 // Ajout ecouteur evenement bouton login
 let bouton = document.getElementById("btnLogin");
-if(bouton !== null) {
+if (bouton !== null) {
     bouton.addEventListener("click", async (event) => {
         event.preventDefault();
         connect();
-});
+    });
 }
 
 

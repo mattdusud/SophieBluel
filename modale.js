@@ -63,17 +63,21 @@ function creerContenuDelete() {
 
 function creerContenuAjouter() {
     let popUp = document.querySelector(".modalePopup");
-    let returnButton = document.createElement("div");
     let content = document.querySelector(".popupContent");
 
-    returnButton.innerHTML = "<i class=\"fa-solid fa-arrow-left\"></i>"
-    returnButton.classList.add("returnButton", "popupBtn");
-    popUp.appendChild(returnButton);
-    returnButton.addEventListener('click', () => {
-        returnButton.remove();
-        content.innerHTML = "";
-        creerContenuDelete();
-    })
+    let returnButton = document.querySelector(".returnButton");
+    if (returnButton === null) {
+        returnButton = document.createElement("div");
+        returnButton.innerHTML = "<i class=\"fa-solid fa-arrow-left\"></i>"
+        returnButton.classList.add("returnButton", "popupBtn");
+        returnButton.addEventListener('click', () => {
+            returnButton.remove();
+            content.innerHTML = "";
+            creerContenuDelete();
+        })
+        popUp.appendChild(returnButton);
+    }
+
     let popuptitre = document.querySelector(".modalePopup h2")
     popuptitre.innerText = "Ajout photo";
 
@@ -96,7 +100,6 @@ function creerContenuAjouter() {
     let label = document.createElement("label");
     label.setAttribute("for", "uploadPhoto");
     label.innerText = "+ Ajouter photo";
-
 
     let browseTxt = document.createElement("p");
     browseTxt.setAttribute("for", "uploadPhoto");
@@ -123,7 +126,7 @@ function creerContenuAjouter() {
             previewImg.hidden = false;
             previewImg.src = URL.createObjectURL(file)
         }
-        afficherMsgAjoutWork("test");
+        afficherMsgAjoutWork("Champs incomplets");
     }
 
     let uploadChamps = document.createElement("div");
