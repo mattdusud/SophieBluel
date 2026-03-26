@@ -231,11 +231,12 @@ li:hover {
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 100%;
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
+	padding-left: 72px;
 }
 
 #introduction h2 {
@@ -244,6 +245,10 @@ li:hover {
 
 #introduction p {
 	margin-bottom: 0.5em;
+	font-family: 'Work Sans';
+	color: #3D3D3D;
+	font-size: 17px;
+	font-weight: 400;
 }
 
 #portfolio h2 {
