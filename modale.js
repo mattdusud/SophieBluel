@@ -93,7 +93,7 @@ function creerContenuAjouter() {
     browseButton.setAttribute("type", "file");
     browseButton.setAttribute("id", "uploadPhoto");
     browseButton.setAttribute("name", "image");
-    browseButton.setAttribute = ("accept", ".png, .jpg, .jpeg");
+    browseButton.setAttribute("accept", ".png, .jpg, .jpeg");
     browseButton.classList.add("browseButton");
     browseButton.hidden = true;
 
@@ -117,8 +117,13 @@ function creerContenuAjouter() {
 
     browseButton.onchange = evt => {
         const [file] = browseButton.files;
-
-        if (file) {
+        const maxSize = 4 * 1024 * 1024; // 4 Mo en octets
+        if (file.size > maxSize) {
+            afficherMsgAjoutWork("Fichier trop volumineux");
+            browseButton.value = ""; 
+            return;
+        }
+        if (file && (file.size <= maxSize)) {
             iconImage.hidden = true;
             browseButton.hidden = true;
             label.hidden = true;
